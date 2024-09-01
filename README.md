@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Rust-Oauth2
 =======
 # Web3 OAuth2 Library
