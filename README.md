@@ -73,8 +73,9 @@ Error: Chain not found
 
 This error occurs when the specified blockchain network is not found in the MultiChainClient. Verify that the network name and URL are correctly configured.
 
-## under development be carefull before run the code or contact tome on TG:(view profile)
+## under development 
+
+be carefull before run the code or contact to me on TG:(view profile)
 
 
 
->>>>>>> c1acb76 (Initial commit)
