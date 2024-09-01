@@ -16,7 +16,6 @@ openssl = "0.10"
 warp = "0.3"
 tower = "0.4"
 web3 = "0.15.0"
-clippy = "0.1"
 
 
 [dev-dependencies]
