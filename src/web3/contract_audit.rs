@@ -12,10 +12,16 @@ impl ContractAudit {
         contract_address: &str,
     ) -> Result<TransactionReceipt, Box<dyn Error>> {
         let receipt = web3.eth().transaction_receipt(contract_address.parse()?).await?;
-        // Temel kontroller burada yapılır
-        if receipt.is_none() || receipt.as_ref().unwrap().status.is_none() || receipt.unwrap().status.unwrap().is_zero() {
+
+        // receipt'i unwrap yaparak TransactionReceipt alın
+        let receipt = receipt.unwrap();
+
+        let status = receipt.status;
+
+        if status.is_none() || status.unwrap().is_zero() {
             return Err(Box::from("Contract audit failed"));
         }
-        Ok(receipt.unwrap())
+
+        Ok(receipt)
     }
 }
