@@ -1,6 +1,7 @@
 // src/wallet/multisig.rs
 
 use secp256k1::{Message, Secp256k1, SecretKey, Signature};
+use secp256k1::ecdsa::Signature;
 use std::error::Error;
 use sha2::{Sha256, Digest};
 
