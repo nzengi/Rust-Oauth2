@@ -1,5 +1,3 @@
-// src/oauth/device_flow.rs
-
 use reqwest::Client;
 use serde::{Deserialize, Serialize};
 use std::error::Error;
