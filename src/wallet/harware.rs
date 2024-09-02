@@ -6,17 +6,17 @@ pub struct HardwareWallet;
 
 impl HardwareWallet {
     pub fn connect_ledger() -> Result<(), Box<dyn Error>> {
-        // Implement Ledger connection logic
+        // Ledger cüzdan bağlantı kodu burada
         Ok(())
     }
 
     pub fn connect_trezor() -> Result<(), Box<dyn Error>> {
-        // Implement Trezor connection logic
+        // Trezor cüzdan bağlantı kodu burada
         Ok(())
     }
 
     pub fn sign_transaction_with_hardware_wallet() -> Result<String, Box<dyn Error>> {
-        // Implement transaction signing logic with hardware wallet
+        // Donanım cüzdan ile işlem imzalama kodu burada
         Ok("signed_transaction".to_string())
     }
 }
