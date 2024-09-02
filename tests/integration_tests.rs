@@ -1,42 +1,31 @@
-// examples/main.rs
-
-use std::time::Duration;
-use tokio::time::sleep;
-use tower::limit::RateLimitLayer;
-use tower::ServiceBuilder;
 use warp::Filter;
+use std::sync::{Arc, Mutex};
+use std::time::{Instant, Duration};
 
 #[tokio::main]
 async fn main() {
-    // Rate limiting: 5 requests per second
-    let rate_limit = ServiceBuilder::new()
-        .layer(RateLimitLayer::new(5, Duration::from_secs(1)))
-        .service_fn(|req| async move {
-            // Handle request
-            Ok::<_, warp::Rejection>(warp::reply::with_status(
-                "Request handled",
-                warp::http::StatusCode::OK,
-            ))
-        });
+    let request_count = Arc::new(Mutex::new((0, Instant::now())));
 
-    // Define CORS settings
-    let cors = warp::cors()
-        .allow_any_origin()
-        .allow_methods(vec!["GET", "POST", "PUT", "DELETE"])
-        .allow_headers(vec!["Authorization", "Content-Type"]);
+    let rate_limit = {
+        let request_count = Arc::clone(&request_count);
+        warp::any().map(move || {
+            let mut count = request_count.lock().unwrap();
+            let elapsed = count.1.elapsed();
+            if elapsed > Duration::from_secs(1) {
+                *count = (1, Instant::now());
+            } else {
+                count.0 += 1;
+                if count.0 > 5 {
+                    return warp::reply::with_status("Too Many Requests", warp::http::StatusCode::TOO_MANY_REQUESTS);
+                }
+            }
+            warp::reply::with_status("Request handled", warp::http::StatusCode::OK)
+        })
+    };
 
-    // Example route that uses both CORS and rate limiting
     let route = warp::path("example")
         .and(warp::get())
-        .and_then(move || {
-            // Simulate some processing
-            async move {
-                sleep(Duration::from_millis(500)).await;
-                Ok::<_, warp::Rejection>("CORS and Rate Limiting applied")
-            }
-        })
-        .with(cors)
-        .with(warp::filters::service(rate_limit));
+        .and(rate_limit);
 
     warp::serve(route).run(([127, 0, 0, 1], 3030)).await;
 }

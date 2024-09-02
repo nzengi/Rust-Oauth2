@@ -1,9 +1,9 @@
 #[cfg(test)]
 mod tests {
-    use super::*;
-    use crate::jwt::{create_jwt, validate_jwt, Claims, JwtAlgorithm};
-    use crate::wallet::Wallet; // Wallet modülünün doğru import edildiğinden emin olun
-    use crate::oauth::{OAuthToken, client_credentials::ClientCredentialsFlow}; // OAuth modüllerini doğru import ettiğinizden emin olun
+    use rust_oauth2::jwt::{create_jwt, validate_jwt, Claims, JwtAlgorithm};
+    use rust_oauth2::wallet::Wallet;
+    use rust_oauth2::oauth::token::OAuthToken;
+    use rust_oauth2::oauth::client_credentials::ClientCredentialsFlow;
 
     #[test]
     fn test_oauth_token_creation() {
@@ -27,10 +27,14 @@ mod tests {
             exp: 10000000000,
         };
 
-        let private_key = include_bytes!("../private_rsa_key.pem");
+        // let private_key = include_bytes!("../private_rsa_key.pem"); // Gerçek dosya
+        let private_key = b"mock_private_key"; // Mock anahtar
+
         let token = create_jwt(&claims, private_key, JwtAlgorithm::RS256).expect("Failed to create token");
 
-        let public_key = include_bytes!("../public_rsa_key.pem");
+        // let public_key = include_bytes!("../public_rsa_key.pem"); // Gerçek dosya
+        let public_key = b"mock_public_key"; // Mock anahtar
+
         let decoded_claims = validate_jwt(&token, public_key, JwtAlgorithm::RS256).expect("Failed to validate token");
 
         assert_eq!(decoded_claims.sub, claims.sub);
@@ -44,10 +48,14 @@ mod tests {
             exp: 10000000000,
         };
 
-        let private_key = include_bytes!("../private_ec_key.pem");
+        // let private_key = include_bytes!("../private_ec_key.pem"); // Gerçek dosya
+        let private_key = b"mock_private_key"; // Mock anahtar
+
         let token = create_jwt(&claims, private_key, JwtAlgorithm::ES256).expect("Failed to create token");
 
-        let public_key = include_bytes!("../public_ec_key.pem");
+        // let public_key = include_bytes!("../public_ec_key.pem"); // Gerçek dosya
+        let public_key = b"mock_public_key"; // Mock anahtar
+
         let decoded_claims = validate_jwt(&token, public_key, JwtAlgorithm::ES256).expect("Failed to validate token");
 
         assert_eq!(decoded_claims.sub, claims.sub);

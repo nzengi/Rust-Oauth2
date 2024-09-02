@@ -1,5 +1,3 @@
-// src/oauth/pkce.rs
-
 use base64::{encode_config, URL_SAFE_NO_PAD};
 use sha2::{Digest, Sha256};
 use rand::Rng;
