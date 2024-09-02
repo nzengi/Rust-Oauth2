@@ -1,5 +1,3 @@
-// src/wallet/hardware.rs
-
 pub struct HardwareWallet;
 
 impl HardwareWallet {
