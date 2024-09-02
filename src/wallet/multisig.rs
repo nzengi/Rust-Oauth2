@@ -1,7 +1,7 @@
 // src/wallet/multisig.rs
 
-use secp256k1::{Message, Secp256k1, SecretKey, Signature};
-use secp256k1::ecdsa::Signature;
+use secp256k1::{Message, Secp256k1, SecretKey};
+use secp256k1::ecdsa::Signature as EcdsaSignature;  // Alias ekledik
 use std::error::Error;
 use sha2::{Sha256, Digest};
 
@@ -22,7 +22,7 @@ impl MultiSigWallet {
         &self,
         message: &str,
         private_keys: Vec<SecretKey>,
-    ) -> Result<Vec<Signature>, Box<dyn Error>> {
+    ) -> Result<Vec<EcdsaSignature>, Box<dyn Error>> {  // Alias kullanıldı
         if private_keys.len() < self.required_signatures {
             return Err(Box::from("Not enough signatures provided"));
         }
