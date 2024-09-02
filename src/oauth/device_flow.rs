@@ -1,4 +1,4 @@
-// src/oauth/device_flow.rs
+// src/device_flow.rs
 
 use reqwest::Client;
 use serde::{Deserialize, Serialize};
@@ -66,7 +66,7 @@ impl DeviceFlow {
                 let token: String = response.json().await?;
                 return Ok(Some(token));
             } else if response.status() == 400 {
-                // Handle specific error codes (e.g., slow down, authorization_pending, etc.)
+                // Belirli hata kodları (örneğin, slow down, authorization_pending, vb.) burada işlenebilir
             }
 
             sleep(Duration::from_secs(interval)).await;
