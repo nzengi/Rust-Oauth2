@@ -11,11 +11,11 @@ impl ContractAudit {
         web3: &Web3<web3::transports::Http>,
         contract_address: &str,
     ) -> Result<TransactionReceipt, Box<dyn Error>> {
-        let receipt = web3.eth().get_transaction_receipt(contract_address.parse()?).await?;
-        // Perform basic checks on the receipt
-        if receipt.status.is_none() || receipt.status.unwrap().is_zero() {
+        let receipt = web3.eth().transaction_receipt(contract_address.parse()?).await?;
+        // Temel kontroller burada yapılır
+        if receipt.is_none() || receipt.as_ref().unwrap().status.is_none() || receipt.unwrap().status.unwrap().is_zero() {
             return Err(Box::from("Contract audit failed"));
         }
-        Ok(receipt)
+        Ok(receipt.unwrap())
     }
 }
