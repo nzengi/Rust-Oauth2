@@ -7,7 +7,7 @@ use std::sync::Mutex;
 use std::error::Error;
 use lazy_static::lazy_static;
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]  // Clone trait'i eklendi
 pub struct Claims {
     pub sub: String,
     pub company: String,
@@ -34,7 +34,7 @@ pub fn create_jwt(claims: &Claims, key: &[u8], alg: JwtAlgorithm) -> Result<Stri
 }
 
 pub fn validate_jwt(token: &str, key: &[u8], alg: JwtAlgorithm) -> Result<Claims, Box<dyn Error>> {
-    // Check cache first
+    // Önce önbelleği kontrol et
     if let Some(cached_claims) = JWT_CACHE.lock()?.get(token) {
         return Ok(cached_claims.clone());
     }
@@ -48,7 +48,7 @@ pub fn validate_jwt(token: &str, key: &[u8], alg: JwtAlgorithm) -> Result<Claims
     let decoded_token = decode::<Claims>(token, &decoding_key, &validation)?;
     let claims = decoded_token.claims.clone();
 
-    // Store in cache
+    // Önbelleğe ekle
     JWT_CACHE.lock()?.insert(token.to_string(), claims.clone());
 
     Ok(claims)
