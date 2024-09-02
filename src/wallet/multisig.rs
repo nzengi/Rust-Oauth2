@@ -31,7 +31,7 @@ impl MultiSigWallet {
         let mut signatures = Vec::new();
 
         for key in private_keys.iter().take(self.required_signatures) {
-            let signature = secp.sign(&message_hash, key);
+            let signature = secp.sign_ecdsa(&message_hash, key);
             signatures.push(signature);
         }
 
