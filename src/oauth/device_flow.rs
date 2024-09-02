@@ -1,4 +1,4 @@
-// src/device_flow.rs
+// src/oauth/device_flow.rs
 
 use reqwest::Client;
 use serde::{Deserialize, Serialize};
