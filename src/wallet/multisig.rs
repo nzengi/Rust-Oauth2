@@ -2,6 +2,7 @@
 
 use secp256k1::{Message, Secp256k1, SecretKey, Signature};
 use std::error::Error;
+use sha2::{Sha256, Digest};
 
 pub struct MultiSigWallet {
     pub addresses: Vec<String>,
@@ -26,7 +27,7 @@ impl MultiSigWallet {
         }
 
         let secp = Secp256k1::new();
-        let message_hash = secp256k1::Message::from_slice(&Sha256::digest(message.as_bytes()))?;
+        let message_hash = Message::from_slice(&Sha256::digest(message.as_bytes()))?;
         let mut signatures = Vec::new();
 
         for key in private_keys.iter().take(self.required_signatures) {
