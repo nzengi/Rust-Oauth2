@@ -13,8 +13,9 @@ impl ContractAudit {
     ) -> Result<TransactionReceipt, Box<dyn Error>> {
         let receipt = web3.eth().transaction_receipt(contract_address.parse()?).await?;
 
-        // Temel kontroller burada yapılır
-        let receipt = receipt.unwrap(); // Önce unwrap yapıyoruz
+        // receipt'i unwrap yaparak TransactionReceipt alın
+        let receipt = receipt.unwrap();
+
         let status = receipt.status;
 
         if status.is_none() || status.unwrap().is_zero() {
