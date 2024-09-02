@@ -1,5 +1,3 @@
-// examples/main.rs
-
 use std::time::Duration;
 use tokio::time::sleep;
 use tower::limit::RateLimitLayer;
@@ -11,13 +9,13 @@ async fn main() {
     // Rate limiting: 5 requests per second
     let rate_limit = ServiceBuilder::new()
         .layer(RateLimitLayer::new(5, Duration::from_secs(1)))
-        .service_fn(|req| async move {
+        .service(warp::service::service_fn(|req| async move {
             // Handle request
             Ok::<_, warp::Rejection>(warp::reply::with_status(
                 "Request handled",
                 warp::http::StatusCode::OK,
             ))
-        });
+        }));
 
     // Define CORS settings
     let cors = warp::cors()
@@ -36,7 +34,7 @@ async fn main() {
             }
         })
         .with(cors)
-        .with(warp::filters::service(rate_limit));
+        .with(rate_limit);
 
     warp::serve(route).run(([127, 0, 0, 1], 3030)).await;
 }

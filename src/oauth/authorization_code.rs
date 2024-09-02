@@ -1,6 +1,4 @@
-// src/oauth/authorization_code.rs
-
-use super::OAuthToken;
+use crate::oauth::token::OAuthToken;
 use reqwest::Client;
 use std::error::Error;
 

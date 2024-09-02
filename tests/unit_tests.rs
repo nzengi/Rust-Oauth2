@@ -1,11 +1,9 @@
-// tests/unit_tests.rs
-
 #[cfg(test)]
 mod tests {
     use super::*;
     use crate::jwt::{create_jwt, validate_jwt, Claims, JwtAlgorithm};
-    use crate::wallet::Wallet;
-    use crate::oauth::{OAuthToken, client_credentials::ClientCredentialsFlow};
+    use crate::wallet::Wallet; // Wallet modülünün doğru import edildiğinden emin olun
+    use crate::oauth::{OAuthToken, client_credentials::ClientCredentialsFlow}; // OAuth modüllerini doğru import ettiğinizden emin olun
 
     #[test]
     fn test_oauth_token_creation() {

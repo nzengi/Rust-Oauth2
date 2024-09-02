@@ -1,6 +1,6 @@
 // src/oauth/resource_owner_password.rs
 
-use super::OAuthToken;
+use crate::oauth::token::OAuthToken;
 use reqwest::Client;
 use std::error::Error;
 

@@ -1,5 +1,5 @@
 [package]
-name = "web3-oauth2"
+name = "rust_oauth2"
 version = "0.1.0"
 edition = "2021"
 description = "A Rust library for OAuth 2.0 authentication and authorization in Web3 applications."
@@ -14,15 +14,14 @@ serde_json = "1.0"
 jsonwebtoken = "8"
 openssl = "0.10"
 warp = "0.3"
-tower = "0.4"
+tower = { version = "0.4", features = ["limit"] }
 web3 = "0.15.0"
-reqwest = "0.11"              # HTTP istemcisi için gerekli
-lazy_static = "1.4"           # Statik veriler için gerekli
-rand = "0.8"                  # Rastgele sayı üretimi için gerekli
-sha2 = "0.9"                  # SHA-2 hash fonksiyonu için gerekli
-base64 = "0.13"               # Base64 kodlama için gerekli
-secp256k1 = "0.21"            # ECDSA imzalama için gerekli
-
+reqwest = { version = "0.11", features = ["json"] }
+lazy_static = "1.4"
+rand = "0.8"
+sha2 = "0.9"
+base64 = "0.13"
+secp256k1 = "0.21"
 
 [dev-dependencies]
 tokio-test = "0.4"

@@ -1,6 +1,5 @@
 // src/oauth/implicit.rs
 
-use super::OAuthToken;
 
 // Defines the necessary parameters for the implicit flow
 #[derive(Debug)]

@@ -1,5 +1,6 @@
-// src/oauth/token.rs
+use serde::{Deserialize, Serialize};
 
+#[derive(Debug, Serialize, Deserialize)]
 pub struct OAuthToken {
     pub access_token: String,
     pub token_type: String,
