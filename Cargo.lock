@@ -1636,6 +1636,7 @@ name = "rust_oauth2"
 version = "0.1.0"
 dependencies = [
  "base64 0.13.1",
+ "hex",
  "jsonwebtoken",
  "lazy_static",
  "openssl",
