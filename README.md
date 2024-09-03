@@ -26,7 +26,7 @@ web3-oauth2 = "0.2.0"
 ## PKCE Example
 
 ```bash
-use web3_oauth2::pkce::PkceCode;
+use rust_oauth2::pkce::PkceCode;
 
 fn main() {
     let pkce = PkceCode::new().expect("Failed to generate PKCE code");
