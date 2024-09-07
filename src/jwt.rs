@@ -5,7 +5,7 @@ use std::sync::Mutex;
 use std::error::Error;
 use lazy_static::lazy_static;
 
-#[derive(Debug, Serialize, Deserialize, Clone)]  // Clone trait'i eklendi
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct Claims {
     pub sub: String,
     pub company: String,
